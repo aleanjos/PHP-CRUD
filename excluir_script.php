@@ -1,14 +1,12 @@
 <?php
-  // Script responsável por deletar os dados no banco de dados.
 
   include "includes/conexao.php";
   include "includes/header.php";
 
-  // Atribuir os valores dos campos postados pelo usuário as variáveis.
   $id = $_POST['id'];
   $nome = $_POST['nome'];
   
-  // Função que retorna a mensagem se o cadastro foi alterado ou não.
+  // Função que retorna a mensagem se o cadastro foi excluído ou não.
   function mensagemCadastro($texto, $tipo) {
     echo "<div class='alert alert-$tipo' role='alert'>
             $texto

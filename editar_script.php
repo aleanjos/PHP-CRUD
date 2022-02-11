@@ -1,9 +1,8 @@
 <?php
-  // Script responsável por inserir os dados no banco de dados.
 
   include "includes/conexao.php";
   include "includes/header.php";
-  // Atribuir os valores dos campos postados pelo usuário as variáveis.
+  
   $id = $_POST['id'];
   $nome = $_POST['nome'];
   $endereco = $_POST['endereco'];
@@ -17,16 +16,16 @@
             $texto
           </div>";
   }
-  // Query para inserir dados na tabela
+  // Atualizar dados no banco de dados
   $stmt = $conn->prepare("UPDATE pessoas set nome = '$nome', endereco = '$endereco', telefone = '$telefone',
     email = '$email', data_nascimento = '$dataNascimento' WHERE cod_pessoa = '$id'");
-  //Ultilizando a passagem de parâmetros por posição
+    
   $stmt->bindParam(1, $nome);
   $stmt->bindParam(2, $endereco);
   $stmt->bindParam(3, $telefone);
   $stmt->bindParam(4, $email);
   $stmt->bindParam(5, $dataNascimento);
-  // Condição se os dados foram realizados com sucesso.
+  
   if ($stmt->execute()) {
     mensagemCadastro("O cadastro de $nome foi alterado com sucesso!", "success");
   } else {
