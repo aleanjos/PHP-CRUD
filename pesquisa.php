@@ -7,9 +7,9 @@
    
      include "includes/conexao.php";
 
-     // Consulta a ser realizada no banco de dados, selecionando a tabela "pessoas" e buscar de acordo com o que o usuário escrever na busca.
+     // Consulta a ser realizada no banco de dados e filtrar de acordo com o que o usuário escrever na busca.
      $stmt = $conn->prepare("SELECT * FROM pessoas WHERE nome LIKE '%$busca%'");
-     // executa a query
+
      $stmt->execute();
 
 
@@ -46,7 +46,7 @@
        
        <?php
 
-         // Realiza a busca por completo na tabela pessoas e mostra o resultado na tela organizado por tabelas
+         // Realiza a busca por completo na tabela e mostra o resultado na tela organizado por tabelas
          $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
          if (!$rows) {
@@ -78,8 +78,9 @@
                      <td>$email</td>
                      <td>$data</td>
                      <td width='160px'>
-                      <a href='cadastro_editar.php?id=$codPessoa' class='btn btn-primary btn-sm'>Editar</a>
-                      <a href='' class='btn btn-danger btn-sm'>Excluir</a>
+                      <a href='editar.php?id=$codPessoa' class='btn btn-primary btn-sm'>Editar</a>
+                      <a href='#' class='btn btn-danger btn-sm' data-toggle='modal' data-target='#modal_confirmar'
+                      onclick=" . '"' . "pegarDados($codPessoa, '$nome')" . '"' .">Excluir</a>
                      </td>
                      </tr>";
       
@@ -91,6 +92,40 @@
    </table>
    
    <a href="index.php" class="btn btn-primary">Voltar para a página inicial</a>
+
+   <!-- Modal -->
+    <div class="modal fade" id="modal_confirmar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Confirmação de exclusão</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form action="excluir_script.php" method="POST">
+              <p>Deseja realmente excluir <b id="nome_pessoa"></b>?</p>
+              
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Não</button>
+              <input type="hidden" name="id" id="cod_pessoa" value="">
+              <input type="hidden" name="nome" id="nome_pessoa1" value="">
+              <input type="submit" class="btn btn-danger" value="Sim">
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      function pegarDados(id, nome) {
+        document.getElementById('nome_pessoa').innerHTML = nome;
+        document.getElementById('nome_pessoa1').value = nome;
+        document.getElementById('cod_pessoa').value = id;
+      }
+    </script>  
 
 <?php
    include "includes/footer.php";

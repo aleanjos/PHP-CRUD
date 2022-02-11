@@ -3,7 +3,7 @@
 ?>
 
 <h1>Cadastro</h1>
-  <form action="cadastro_salvar.php" method="post">
+  <form action="salvar.php" method="post">
     <div class="form-group">
       <label for="nome">Nome completo</label>
         <input type="text" class="form-control" name="nome" required autofocus>
