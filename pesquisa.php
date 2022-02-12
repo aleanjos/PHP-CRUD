@@ -12,15 +12,6 @@
 
      $stmt->execute();
 
-
-    function formatarData($data) {
-
-      $d = explode('-', $data);
-      $novaData = $d[2] . "/" . $d[1] . "/" . $d[0];
-      return $novaData;
-
-    }
-
    ?>
    
    <h1>Pesquisar</h1>
@@ -45,7 +36,12 @@
      <tbody>
        
        <?php
-
+          // Formatar data no padrão brasileiro.
+          function formatarData($data) {
+            $d = explode('-', $data);
+            $novaData = $d[2] . "/" . $d[1] . "/" . $d[0];
+            return $novaData;
+} 
          // Realiza a busca por completo na tabela e mostra o resultado na tela organizado por tabelas
          $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
    
@@ -70,8 +66,16 @@
                      $email = $row['email'];
                      $data = $row['data_nascimento'];
                      $data = formatarData($data);
+
+                    // Verifica se a foto do usuário existe no banco de dados
+                     if (!$row['foto']) {
+                       $foto = "img/cadastros/default.png";
+                     } else {
+                       $foto = "img/cadastros/" . $row['foto'];
+                     }
                
                      echo "<tr>
+                     <th><img src='$foto' class='foto_usuario'</th>
                      <th scope='row'>$nome</th>
                      <td>$endereco</td>
                      <td>$telefone</td>
@@ -104,7 +108,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="excluir_script.php" method="POST">
+            <form action="excluir-script.php" method="POST">
               <p>Deseja realmente excluir <b id="nome_pessoa"></b>?</p>
               
           </div>

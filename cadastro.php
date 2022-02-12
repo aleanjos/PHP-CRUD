@@ -3,7 +3,7 @@
 ?>
 
 <h1>Cadastro</h1>
-  <form action="salvar.php" method="post">
+  <form action="cadastro-script.php" method="post" enctype="multipart/form-data">
     <div class="form-group">
       <label for="nome">Nome completo</label>
         <input type="text" class="form-control" name="nome" required autofocus>
@@ -23,6 +23,10 @@
     <div class="form-group">
       <label for="dataNascimento">Data de nascimento</label>
         <input type="date" class="form-control" name="dataNascimento" required>
+    </div>
+    <div class="form-group">
+      <label for="foto">Foto</label>
+        <input type="file" class="form-control" name="foto" accept=".jpg">
     </div><br>
     <div class="form-group">
       <input type="submit" class="btn btn-success" value="Cadastrar">

@@ -12,7 +12,7 @@
 ?>
 
 <h1>Alteração de cadastro</h1>
-  <form action="editar_script.php" method="post">
+  <form action="editar-script.php" method="post">
     <div class="form-group">
       <label for="nome">Nome completo</label>
         <input type="text" class="form-control" name="nome" required value="<?php echo $linha['nome']; ?>">
